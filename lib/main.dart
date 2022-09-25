@@ -1,26 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:metronome/screens/metronome.dart';
 
 void main() {
-  runApp(const Metronome());
+  runApp(const MetronomeApp());
 }
 
-class Metronome extends StatefulWidget {
-  const Metronome({super.key});
+class MetronomeApp extends StatefulWidget {
+  const MetronomeApp({super.key});
 
   @override
-  State<Metronome> createState() => _MetronomeState();
+  State<MetronomeApp> createState() => _MetronomeState();
 }
 
-class _MetronomeState extends State<Metronome> {
+class _MetronomeState extends State<MetronomeApp> {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.white,
-        body: Center(
-          child: Text('Hello World'),
-        ),
-      )
+      home: Metronome()
     );
   }
 }
