@@ -32,7 +32,7 @@ class Controls extends StatelessWidget {
           children: [
             ElevatedButton(
                 onPressed: () {
-                  signature.signature++;
+                  signature.beatCount++;
                   notifyParent();
                 },
                 style: buttonStyle,
@@ -54,7 +54,7 @@ class Controls extends StatelessWidget {
             ),
             ElevatedButton(
                 onPressed: () {
-                  signature.signature--;
+                  signature.beatCount--;
                   notifyParent();
                 },
                 style: buttonStyle,
