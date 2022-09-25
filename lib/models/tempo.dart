@@ -3,10 +3,12 @@ class Tempo{
 
   final int maxTempo;
   final int minTempo;
+  late double interval;
   bool isPlaying = false;
 
   Tempo({tempo = 120, this.minTempo = 50, this.maxTempo = 300}){
     _tempo = tempo;
+    interval = (60/_tempo) * 1000;
   }
 
   int get tempo => _tempo;
@@ -21,5 +23,6 @@ class Tempo{
     else{
       _tempo = value;
     }
+    interval = (60/_tempo) * 1000;
   }
 }
