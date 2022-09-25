@@ -27,7 +27,7 @@ class Tempometer extends StatelessWidget {
             Text(
               '${tempo.tempo}',
               style: const TextStyle(
-                  fontWeight: FontWeight.bold, color: textPrimary, fontSize: 60),
+                  fontWeight: FontWeight.bold, color: textPrimary, fontSize: 80),
             ),
             const SizedBox(width: 10),
             Column(
