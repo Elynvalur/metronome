@@ -27,7 +27,12 @@ class _MetronomeState extends State<Metronome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: bgLight,
+      appBar: AppBar(
+        backgroundColor: backgroundDark2,
+        leading: const Icon(Icons.icecream),
+        title: const Text('Metronome Pro'),
+      ),
+      backgroundColor: backgroundDark1,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

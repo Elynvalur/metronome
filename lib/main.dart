@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:metronome/screens/metronome/metronome.dart';
 
 void main() {
@@ -15,6 +16,7 @@ class MetronomeApp extends StatefulWidget {
 class _MetronomeState extends State<MetronomeApp> {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
     return const MaterialApp(
       home: Metronome()
     );

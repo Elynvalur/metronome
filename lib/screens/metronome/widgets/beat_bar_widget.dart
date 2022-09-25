@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:metronome/constants/colors.dart';
 import 'package:metronome/models/beat_bullet.dart';
 import 'package:metronome/models/time_signature.dart';
 
@@ -26,7 +27,7 @@ class _BeatBarWidgetState extends State<BeatBarWidget> {
     List<Widget> bar = [];
 
     for (BeatBullet bullet in beats.beatBullets) {
-      Color col = (bullet.isActive)? Colors.red : Colors.grey;
+      Color col = (bullet.isActive)? beatBulletActive : beatBulletInactive;
 
       bar.add(
         AnimatedContainer(

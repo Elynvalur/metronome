@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../models/tempo.dart';
 
+import '../../../constants/colors.dart';
+
 class Tempometer extends StatelessWidget {
 
   final Tempo tempo;
@@ -16,6 +18,7 @@ class Tempometer extends StatelessWidget {
       '${tempo.tempo}',
       style: const TextStyle(
         fontWeight: FontWeight.bold,
+        color: textPrimary,
         fontSize: 40
       ),
     );
