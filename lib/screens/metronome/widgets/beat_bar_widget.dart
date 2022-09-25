@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:metronome/constants/colors.dart';
-import 'package:metronome/models/beat_bullet.dart';
 import 'package:metronome/models/time_signature.dart';
-
-import '../../../models/beat_bar.dart';
 
 class BeatBarWidget extends StatefulWidget {
 
@@ -23,25 +20,26 @@ class _BeatBarWidgetState extends State<BeatBarWidget> {
 
   Widget _buildBeatBar(TimeSignature signature){
 
-    BeatBar beats = BeatBar(signature: signature);
-    List<Widget> bar = [];
+    List<Widget> beats = [];
 
-    for (BeatBullet bullet in beats.beatBullets) {
-      Color col = (bullet.isActive)? beatBulletActive : beatBulletInactive;
-
-      bar.add(
+    for (bool beat in signature.beats) { 
+      beats.add(
         AnimatedContainer(
           duration: Duration.zero,
           margin: const EdgeInsets.only(left: 2.5, right: 2.5),
           width: 20,
           height: 20,
-          decoration: BoxDecoration(shape: BoxShape.circle, color: col)
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: (beat)? Colors.red : Colors.blue
+          )
         )
       );
     }
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: bar);
+      children: beats
+    );
   }
 }

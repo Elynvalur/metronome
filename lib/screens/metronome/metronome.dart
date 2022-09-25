@@ -15,9 +15,9 @@ class Metronome extends StatefulWidget {
 }
 
 class _MetronomeState extends State<Metronome> {
-  Tempo tempo = Tempo(tempo: 150);
   TimeSignature signature = TimeSignature();
-
+  Tempo tempo = Tempo(tempo: 130);
+  
   void update() {
     setState(() {});
   }

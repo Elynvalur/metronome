@@ -10,10 +10,19 @@ class Tempometer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      '${tempo.tempo}',
-      style: const TextStyle(
-          fontWeight: FontWeight.bold, color: textPrimary, fontSize: 60),
+    return Column(
+      children: [
+        Text(
+          '${tempo.tempo}',
+          style: const TextStyle(
+              fontWeight: FontWeight.bold, color: textPrimary, fontSize: 60),
+        ),
+        Text(
+          'One beat every ${(tempo.interval).toInt()} ms.',
+          style: const TextStyle(
+            color: textPrimary),
+        ),
+      ],
     );
   }
 }
