@@ -33,7 +33,13 @@ class _MetronomeState extends State<Metronome> with SingleTickerProviderStateMix
   @override
   Widget build(BuildContext context) {
 
-    (ticker.isActive)? null : ticker.start();
+    if (!tempo.isPlaying){
+      // Stop the ticker if the metronome is in pause mode
+      ticker.stop();
+    } else {
+      (ticker.isActive)? null : ticker.start();
+    }
+
 
     if (elapsed.inMilliseconds >= tempo.interval){
       elapsed = Duration.zero;
@@ -41,7 +47,7 @@ class _MetronomeState extends State<Metronome> with SingleTickerProviderStateMix
       ticker.stop();
       ticker.start();
     }
-    
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: backgroundDark2,
