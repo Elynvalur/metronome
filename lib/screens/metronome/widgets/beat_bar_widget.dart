@@ -25,13 +25,14 @@ class _BeatBarWidgetState extends State<BeatBarWidget> {
     for (bool beat in signature.beats) { 
       beats.add(
         AnimatedContainer(
-          duration: Duration.zero,
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeOut,
           margin: const EdgeInsets.only(left: 2.5, right: 2.5),
           width: 20,
           height: 20,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: (beat)? Colors.red : Colors.blue
+            color: (beat)? beatBulletActive : beatBulletInactive
           )
         )
       );

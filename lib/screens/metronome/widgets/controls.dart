@@ -22,7 +22,7 @@ class Controls extends StatelessWidget {
         elevation: MaterialStateProperty.all(10),
         side: MaterialStateProperty.all(const BorderSide(color: textPrimary)));
 
-    Icon playButtonIcon = (tempo.isPlaying)? Icon(Icons.pause) : Icon(Icons.play_arrow);
+    Icon playButtonIcon = (tempo.isPlaying)? const Icon(Icons.pause) : const Icon(Icons.play_arrow);
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,

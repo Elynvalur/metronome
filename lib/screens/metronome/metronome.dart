@@ -14,9 +14,17 @@ class Metronome extends StatefulWidget {
   State<Metronome> createState() => _MetronomeState();
 }
 
-class _MetronomeState extends State<Metronome> {
-  TimeSignature signature = TimeSignature();
+class _MetronomeState extends State<Metronome> with SingleTickerProviderStateMixin{
+  TimeSignature signature = TimeSignature(beats: 7);
   Tempo tempo = Tempo(tempo: 130);
+
+  Duration elapsed = Duration.zero;
+
+  late final ticker = createTicker((elapsed) {
+    setState((){
+      this.elapsed = elapsed;
+    });
+  });
   
   void update() {
     setState(() {});
@@ -24,6 +32,16 @@ class _MetronomeState extends State<Metronome> {
 
   @override
   Widget build(BuildContext context) {
+
+    (ticker.isActive)? null : ticker.start();
+
+    if (elapsed.inMilliseconds >= tempo.interval){
+      elapsed = Duration.zero;
+      signature.nextBeat();
+      ticker.stop();
+      ticker.start();
+    }
+    
     return Scaffold(
         appBar: AppBar(
           backgroundColor: backgroundDark2,
