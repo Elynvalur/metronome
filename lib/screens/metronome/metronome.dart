@@ -61,7 +61,7 @@ class _MetronomeState extends State<Metronome> with SingleTickerProviderStateMix
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   BeatBarWidget(signature: signature),
-                  Tempometer(tempo: tempo),
+                  Tempometer(tempo: tempo, signature: signature),
                   Controls(
                       signature: signature, tempo: tempo, notifyParent: update)
                 ])));
