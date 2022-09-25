@@ -3,6 +3,7 @@ class Tempo{
 
   final int maxTempo;
   final int minTempo;
+  bool isPlaying = false;
 
   Tempo({tempo = 120, this.minTempo = 50, this.maxTempo = 300}){
     _tempo = tempo;

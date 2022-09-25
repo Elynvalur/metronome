@@ -17,20 +17,16 @@ class Controls extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     ButtonStyle buttonStyle = ButtonStyle(
-      backgroundColor: MaterialStateProperty.all(Colors.transparent),
-      elevation: MaterialStateProperty.all(10),
-      side: MaterialStateProperty.all(const BorderSide(color: textPrimary))
-    );
+        backgroundColor: MaterialStateProperty.all(Colors.transparent),
+        elevation: MaterialStateProperty.all(10),
+        side: MaterialStateProperty.all(const BorderSide(color: textPrimary)));
+
+    Icon playButtonIcon = (tempo.isPlaying)? Icon(Icons.pause) : Icon(Icons.play_arrow);
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
-          'Beats: ${signature.beats}/${signature.signature}',
-          style: const TextStyle(color: textSecondary),
-        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -46,11 +42,13 @@ class Controls extends StatelessWidget {
             ),
             ElevatedButton(
                 onPressed: () {
+                  //TODO: Remove signature.nextBeat()
                   signature.nextBeat();
+                  tempo.isPlaying = !tempo.isPlaying;
                   notifyParent();
                 },
                 style: buttonStyle,
-                child: const Icon(Icons.play_arrow)),
+                child: playButtonIcon),
             const SizedBox(
               width: 10,
             ),
