@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:metronome/screens/metronome.dart';
+import 'package:metronome/screens/metronome/metronome.dart';
 
 void main() {
   runApp(const MetronomeApp());

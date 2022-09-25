@@ -12,8 +12,8 @@ class BeatBar{
   List<BeatBullet> _createBeatBullets(TimeSignature signature){
     List<BeatBullet> list = [];
     bool isActive = false;
-    for (int i = 0; i < signature.beats; i++){
-      isActive = (i == signature.activeBeat)? true : false;
+    for (int i = 0; i < signature.signature; i++){
+      isActive = (i == signature.beats)? true : false;
       list.add(BeatBullet(isActive: isActive));
     }
     return list;
