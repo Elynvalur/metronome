@@ -23,7 +23,6 @@ class Controls extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text('Tempo: ${tempo.tempo}'),
         Text('Beats: ${signature.beats}/${signature.signature}'),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

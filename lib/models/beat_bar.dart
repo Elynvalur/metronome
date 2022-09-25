@@ -13,7 +13,7 @@ class BeatBar{
     List<BeatBullet> list = [];
     bool isActive = false;
     for (int i = 0; i < signature.signature; i++){
-      isActive = (i == signature.beats)? true : false;
+      isActive = (i == signature.beats-1)? true : false;
       list.add(BeatBullet(isActive: isActive));
     }
     return list;

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:metronome/models/tempo.dart';
 import 'package:metronome/models/time_signature.dart';
+import 'package:metronome/screens/metronome/widgets/beat_bar_widget.dart';
 import 'package:metronome/screens/metronome/widgets/controls.dart';
+import 'package:metronome/screens/metronome/widgets/tempometer.dart';
 
 import '../../constants/colors.dart';
+
 
 class Metronome extends StatefulWidget {
   const Metronome({super.key});
@@ -26,10 +29,13 @@ class _MetronomeState extends State<Metronome> {
     return Scaffold(
       backgroundColor: bgLight,
       body: Center(
-        child: Controls(
-          signature: signature,
-          tempo: tempo,
-          notifyParent: update
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            BeatBarWidget(signature: signature),
+            Tempometer(tempo: tempo),
+            Controls(signature: signature, tempo: tempo, notifyParent: update),
+          ],
         ),
       ),
     );
@@ -38,5 +44,4 @@ class _MetronomeState extends State<Metronome> {
 
   void changeTempo(Tempo t){
     t.tempo = 900;
-    print('Tempo: ${t.tempo}');
   }
