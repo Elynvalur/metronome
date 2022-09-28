@@ -42,9 +42,7 @@ class Controls extends StatelessWidget {
             ),
             ElevatedButton(
                 onPressed: () {
-                  //TODO: Remove signature.nextBeat()
-                  signature.nextBeat();
-                  tempo.isPlaying = !tempo.isPlaying;
+                  tempo.isPlaying = !tempo.isPlaying; // toggle the playing-Style
                   notifyParent();
                 },
                 style: buttonStyle,
