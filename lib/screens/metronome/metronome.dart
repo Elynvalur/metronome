@@ -8,7 +8,8 @@ import 'package:metronome/screens/metronome/widgets/tempometer.dart';
 
 import '../../constants/colors.dart';
 
-const clickSound = 'sounds/click.wav';
+const clickSoundHigh = 'sounds/click_high.wav';
+const clickSoundLow = 'sounds/click_low.wav';
 
 class Metronome extends StatefulWidget {
   const Metronome({super.key});
@@ -75,8 +76,14 @@ class _MetronomeState extends State<Metronome>
 
   void nextBeat(){
     elapsed = Duration.zero;
-    click(player1, AssetSource(clickSound));
+    
     signature.nextBeat();
+    if (signature.currentBeat == 1){
+      click(player1, AssetSource(clickSoundHigh));
+    } else {
+      click(player1, AssetSource(clickSoundLow));
+    }
+    
     ticker.stop();
     ticker.start();
   }
