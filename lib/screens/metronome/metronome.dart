@@ -65,7 +65,7 @@ class _MetronomeState extends State<Metronome>
     return Scaffold(
         appBar: AppBar(
           backgroundColor: backgroundDark2,
-          leading: const Icon(Icons.icecream),
+          leading: const Icon(Icons.track_changes),
           title: const Text('Metronome Pro'),
         ),
         backgroundColor: backgroundDark1,

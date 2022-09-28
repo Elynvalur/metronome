@@ -39,7 +39,7 @@ class _BeatBarWidgetState extends State<BeatBarWidget> {
     }
 
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: beats
     );
   }
