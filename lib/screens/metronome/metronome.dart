@@ -25,9 +25,7 @@ class _MetronomeState extends State<Metronome>
   Tempo tempo = Tempo(tempo: 60);
 
   Duration elapsed = Duration.zero;
-  AudioPlayer playerHigh = AudioPlayer()..setReleaseMode(ReleaseMode.stop)..setPlayerMode(PlayerMode.lowLatency)..setSourceAsset(clickSoundHigh);
 
-  AudioPlayer playerLow = AudioPlayer()..setReleaseMode(ReleaseMode.stop)..setPlayerMode(PlayerMode.lowLatency)..setSourceAsset(clickSoundLow);
 
   late final ticker = createTicker((elapsed) {
     this.elapsed = elapsed;
