@@ -22,10 +22,12 @@ class _MetronomeState extends State<Metronome>
     with SingleTickerProviderStateMixin {
 
   TimeSignature signature = TimeSignature(beats: 7);
-  Tempo tempo = Tempo(tempo: 120);
+  Tempo tempo = Tempo(tempo: 60);
 
   Duration elapsed = Duration.zero;
-  AudioPlayer player1 = AudioPlayer()..setReleaseMode(ReleaseMode.stop);
+  AudioPlayer playerHigh = AudioPlayer()..setReleaseMode(ReleaseMode.stop)..setPlayerMode(PlayerMode.lowLatency)..setSourceAsset(clickSoundHigh);
+
+  AudioPlayer playerLow = AudioPlayer()..setReleaseMode(ReleaseMode.stop)..setPlayerMode(PlayerMode.lowLatency)..setSourceAsset(clickSoundLow);
 
   late final ticker = createTicker((elapsed) {
     this.elapsed = elapsed;
@@ -79,18 +81,18 @@ class _MetronomeState extends State<Metronome>
     
     signature.nextBeat();
     if (signature.currentBeat == 1){
-      click(player1, AssetSource(clickSoundHigh));
+      click(playerHigh);
     } else {
-      click(player1, AssetSource(clickSoundLow));
+      click(playerLow);
     }
     
-    ticker.stop();
-    ticker.start();
+    // Stops the current ticker and starts a new one.
+    ticker..stop()..start();
   }
 
-  Future<void> click(AudioPlayer player, Source source) async {
+  Future<void> click(AudioPlayer player) async {
   await player.stop();
-  await player.play(source);
+  await player.resume();
   }
 }
 
