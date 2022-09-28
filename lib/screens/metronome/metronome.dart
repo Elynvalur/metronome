@@ -1,4 +1,3 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:metronome/models/tempo.dart';
 import 'package:metronome/models/time_signature.dart';
@@ -25,9 +24,6 @@ class _MetronomeState extends State<Metronome>
   Tempo tempo = Tempo(tempo: 60);
 
   Duration elapsed = Duration.zero;
-  AudioPlayer playerHigh = AudioPlayer()..setReleaseMode(ReleaseMode.stop)..setPlayerMode(PlayerMode.lowLatency)..setSourceAsset(clickSoundHigh);
-
-  AudioPlayer playerLow = AudioPlayer()..setReleaseMode(ReleaseMode.stop)..setPlayerMode(PlayerMode.lowLatency)..setSourceAsset(clickSoundLow);
 
   late final ticker = createTicker((elapsed) {
     this.elapsed = elapsed;
@@ -81,18 +77,15 @@ class _MetronomeState extends State<Metronome>
     
     signature.nextBeat();
     if (signature.currentBeat == 1){
-      click(playerHigh);
+      //TODO: Implement click high
     } else {
-      click(playerLow);
+      //TODO: Implement click Low;
     }
     
     // Stops the current ticker and starts a new one.
     ticker..stop()..start();
   }
 
-  Future<void> click(AudioPlayer player) async {
-  await player.stop();
-  await player.resume();
-  }
+
 }
 
