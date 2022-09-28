@@ -8,8 +8,8 @@ import 'package:metronome/screens/metronome/widgets/tempometer.dart';
 
 import '../../constants/colors.dart';
 
-const clickSoundHigh = 'sounds/click_high.wav';
-const clickSoundLow = 'sounds/click_low.wav';
+// const clickSoundHigh = 'asset:assets/sounds/click_high.wav';
+// const clickSoundLow = 'asset:assets/sounds/click_low.wav';
 
 class Metronome extends StatefulWidget {
   const Metronome({super.key});
@@ -21,13 +21,16 @@ class Metronome extends StatefulWidget {
 class _MetronomeState extends State<Metronome>
     with SingleTickerProviderStateMixin {
 
-  TimeSignature signature = TimeSignature(beats: 7);
-  Tempo tempo = Tempo(tempo: 60);
+  TimeSignature signature = TimeSignature(beats: 4);
+  Tempo tempo = Tempo(tempo: 135);
 
   Duration elapsed = Duration.zero;
 
-  final playerClickHigh = AudioPlayer();
-  final playerClickLow = AudioPlayer();
+  // final AudioPlayer playerClickHigh = AudioPlayer()..setVolume(1.0)..setAsset(clickSoundHigh);
+  // final AudioPlayer playerClickLow = AudioPlayer()..setVolume(1.0)..setAsset(clickSoundLow);
+  final AudioPlayer playerLow = AudioPlayer();
+  final AudioPlayer playerHigh = AudioPlayer();
+  
 
   late final ticker = createTicker((elapsed) {
     this.elapsed = elapsed;
@@ -40,9 +43,9 @@ class _MetronomeState extends State<Metronome>
 
   @override
   void initState() {
+    initAudioPlayer(playerLow, 'assets/sounds/click_low.mp3');
+    initAudioPlayer(playerHigh, 'assets/sounds/click_high.mp3');
     super.initState();
-    initPlayer(playerClickHigh, 'clickSoundHigh');
-    initPlayer(playerClickLow, 'clickSoundLow');
   }
 
   @override
@@ -83,24 +86,24 @@ class _MetronomeState extends State<Metronome>
     
     signature.nextBeat();
     if (signature.currentBeat == 1){
-      //TODO: Implement click high
-      click(playerClickHigh);
+      //click(playerClickHigh);
+      click(playerHigh);
     } else {
-      //TODO: Implement click Low;
-      click(playerClickLow);
+      //click(playerClickLow);
+      click(playerLow);
     }
     
     // Stops the current ticker and starts a new one.
     ticker..stop()..start();
   }
 
-  void initPlayer(AudioPlayer player, String src) async{
-    await player.setUrl(src);  
-  }
-
   void click(AudioPlayer player) async{
     await player.play();
+    await player.seek(Duration.zero);
   }
 
 }
 
+void initAudioPlayer(AudioPlayer p, String assetPath) async {
+  await p.setAsset(assetPath);
+}
