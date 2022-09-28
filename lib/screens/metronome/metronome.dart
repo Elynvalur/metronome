@@ -1,5 +1,5 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:metronome/models/tempo.dart';
 import 'package:metronome/models/time_signature.dart';
 import 'package:metronome/screens/metronome/widgets/beat_bar_widget.dart';
@@ -8,8 +8,8 @@ import 'package:metronome/screens/metronome/widgets/tempometer.dart';
 
 import '../../constants/colors.dart';
 
-const clickSoundHigh = 'sounds/click_high.wav';
-const clickSoundLow = 'sounds/click_low.wav';
+// const clickSoundHigh = 'asset:assets/sounds/click_high.wav';
+// const clickSoundLow = 'asset:assets/sounds/click_low.wav';
 
 class Metronome extends StatefulWidget {
   const Metronome({super.key});
@@ -21,11 +21,16 @@ class Metronome extends StatefulWidget {
 class _MetronomeState extends State<Metronome>
     with SingleTickerProviderStateMixin {
 
-  TimeSignature signature = TimeSignature(beats: 7);
-  Tempo tempo = Tempo(tempo: 60);
+  TimeSignature signature = TimeSignature(beats: 4);
+  Tempo tempo = Tempo(tempo: 135);
 
   Duration elapsed = Duration.zero;
 
+  // final AudioPlayer playerClickHigh = AudioPlayer()..setVolume(1.0)..setAsset(clickSoundHigh);
+  // final AudioPlayer playerClickLow = AudioPlayer()..setVolume(1.0)..setAsset(clickSoundLow);
+  final AudioPlayer playerLow = AudioPlayer();
+  final AudioPlayer playerHigh = AudioPlayer();
+  
 
   late final ticker = createTicker((elapsed) {
     this.elapsed = elapsed;
@@ -38,6 +43,8 @@ class _MetronomeState extends State<Metronome>
 
   @override
   void initState() {
+    initAudioPlayer(playerLow, 'assets/sounds/click_low.mp3');
+    initAudioPlayer(playerHigh, 'assets/sounds/click_high.mp3');
     super.initState();
   }
 
@@ -79,8 +86,10 @@ class _MetronomeState extends State<Metronome>
     
     signature.nextBeat();
     if (signature.currentBeat == 1){
+      //click(playerClickHigh);
       click(playerHigh);
     } else {
+      //click(playerClickLow);
       click(playerLow);
     }
     
@@ -88,9 +97,13 @@ class _MetronomeState extends State<Metronome>
     ticker..stop()..start();
   }
 
-  Future<void> click(AudioPlayer player) async {
-  await player.stop();
-  await player.resume();
+  void click(AudioPlayer player) async{
+    await player.play();
+    await player.seek(Duration.zero);
   }
+
 }
 
+void initAudioPlayer(AudioPlayer p, String assetPath) async {
+  await p.setAsset(assetPath);
+}
