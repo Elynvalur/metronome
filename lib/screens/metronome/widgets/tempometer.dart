@@ -7,8 +7,9 @@ import '../../../constants/colors.dart';
 class Tempometer extends StatelessWidget {
   final Tempo tempo;
   final TimeSignature signature;
+  final Function notifyParent;
 
-  const Tempometer({super.key, required this.tempo, required this.signature});
+  Tempometer({super.key, required this.tempo, required this.signature, required this.notifyParent});
 
   final TextStyle textStyleTimeSignature =  const TextStyle(
       fontFamily: 'Times',
@@ -17,13 +18,27 @@ class Tempometer extends StatelessWidget {
       fontSize: 25,
     );
 
+  final ButtonStyle buttonStyle = ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(Colors.transparent),
+        elevation: MaterialStateProperty.all(10),
+        side: MaterialStateProperty.all(const BorderSide(color: textPrimary)));
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
+          
           children: [
+            ElevatedButton(
+              onPressed: (){
+                tempo.tempo--;
+                notifyParent();
+              },
+              style: buttonStyle, 
+              child: const Icon(Icons.remove)),
+            const SizedBox(width: 20),
             Text(
               '${tempo.tempo}',
               style: const TextStyle(
@@ -37,9 +52,16 @@ class Tempometer extends StatelessWidget {
                   margin: const EdgeInsets.only(top: 5, bottom: 5),
                   decoration: const BoxDecoration(color: textPrimary),
                   child: const SizedBox(width: 25, height: 2)),
-                Text('${signature.signature}', style: textStyleTimeSignature)
+                Text('${signature.signature}', style: textStyleTimeSignature),
               ]
-            )
+            ),
+            const SizedBox(width: 20),
+            ElevatedButton(onPressed: (){
+                tempo.tempo++;
+                notifyParent();
+              },
+              style: buttonStyle,
+              child: const Icon(Icons.add)),
           ],
         ),
         Text(

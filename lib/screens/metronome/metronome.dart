@@ -75,7 +75,7 @@ class _MetronomeState extends State<Metronome>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   BeatBarWidget(signature: signature),
-                  Tempometer(tempo: tempo, signature: signature),
+                  Tempometer(tempo: tempo, signature: signature, notifyParent: update),
                   Controls(
                       signature: signature, tempo: tempo, notifyParent: update)
                 ])));
