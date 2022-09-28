@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:metronome/models/tempo.dart';
 import 'package:metronome/models/time_signature.dart';
@@ -7,6 +8,8 @@ import 'package:metronome/screens/metronome/widgets/tempometer.dart';
 
 import '../../constants/colors.dart';
 
+const clickSound = 'sounds/click.wav';
+
 class Metronome extends StatefulWidget {
   const Metronome({super.key});
 
@@ -14,38 +17,41 @@ class Metronome extends StatefulWidget {
   State<Metronome> createState() => _MetronomeState();
 }
 
-class _MetronomeState extends State<Metronome> with SingleTickerProviderStateMixin{
+class _MetronomeState extends State<Metronome>
+    with SingleTickerProviderStateMixin {
+
   TimeSignature signature = TimeSignature(beats: 7);
-  Tempo tempo = Tempo(tempo: 130);
+  Tempo tempo = Tempo(tempo: 120);
 
   Duration elapsed = Duration.zero;
+  AudioPlayer player1 = AudioPlayer()..setReleaseMode(ReleaseMode.stop);
 
   late final ticker = createTicker((elapsed) {
-    setState((){
-      this.elapsed = elapsed;
-    });
+    this.elapsed = elapsed;
+    update();
   });
-  
+
   void update() {
     setState(() {});
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+  }
 
-    if (!tempo.isPlaying){
+  @override
+  Widget build(BuildContext context) {
+    if (!tempo.isPlaying) {
       // Stop the ticker if the metronome is in pause mode
       ticker.stop();
+      signature.stop();
     } else {
-      (ticker.isActive)? null : ticker.start();
+      (ticker.isActive) ? null : nextBeat();
     }
 
-
-    if (elapsed.inMilliseconds >= tempo.interval){
-      elapsed = Duration.zero;
-      signature.nextBeat();
-      ticker.stop();
-      ticker.start();
+    if (elapsed.inMilliseconds >= tempo.interval) {
+      nextBeat();
     }
 
     return Scaffold(
@@ -66,8 +72,18 @@ class _MetronomeState extends State<Metronome> with SingleTickerProviderStateMix
                       signature: signature, tempo: tempo, notifyParent: update)
                 ])));
   }
+
+  void nextBeat(){
+    elapsed = Duration.zero;
+    click(player1, AssetSource(clickSound));
+    signature.nextBeat();
+    ticker.stop();
+    ticker.start();
+  }
+
+  Future<void> click(AudioPlayer player, Source source) async {
+  await player.stop();
+  await player.play(source);
+  }
 }
 
-void changeTempo(Tempo t) {
-  t.tempo = 900;
-}
