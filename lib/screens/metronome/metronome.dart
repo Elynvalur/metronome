@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:metronome/models/tempo.dart';
 import 'package:metronome/models/time_signature.dart';
 import 'package:metronome/screens/metronome/widgets/beat_bar_widget.dart';
@@ -25,6 +26,9 @@ class _MetronomeState extends State<Metronome>
 
   Duration elapsed = Duration.zero;
 
+  final playerClickHigh = AudioPlayer();
+  final playerClickLow = AudioPlayer();
+
   late final ticker = createTicker((elapsed) {
     this.elapsed = elapsed;
     update();
@@ -37,6 +41,8 @@ class _MetronomeState extends State<Metronome>
   @override
   void initState() {
     super.initState();
+    initPlayer(playerClickHigh, 'clickSoundHigh');
+    initPlayer(playerClickLow, 'clickSoundLow');
   }
 
   @override
@@ -78,14 +84,23 @@ class _MetronomeState extends State<Metronome>
     signature.nextBeat();
     if (signature.currentBeat == 1){
       //TODO: Implement click high
+      click(playerClickHigh);
     } else {
       //TODO: Implement click Low;
+      click(playerClickLow);
     }
     
     // Stops the current ticker and starts a new one.
     ticker..stop()..start();
   }
 
+  void initPlayer(AudioPlayer player, String src) async{
+    await player.setUrl(src);  
+  }
+
+  void click(AudioPlayer player) async{
+    await player.play();
+  }
 
 }
 
