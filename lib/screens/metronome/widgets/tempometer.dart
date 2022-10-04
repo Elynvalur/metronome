@@ -45,7 +45,7 @@ class Tempometer extends StatelessWidget {
                         border: Border.all(
                             style: BorderStyle.solid,
                             color: textPrimary,
-                            strokeAlign: StrokeAlign.center)),
+                            strokeAlign: BorderSide.strokeAlignCenter)),
                     child: const Icon(Icons.remove, size: 45, color: textPrimary))),
             const SizedBox(width: 20),
             Text(
@@ -76,7 +76,7 @@ class Tempometer extends StatelessWidget {
                         border: Border.all(
                             style: BorderStyle.solid,
                             color: textPrimary,
-                            strokeAlign: StrokeAlign.center)),
+                            strokeAlign: BorderSide.strokeAlignCenter)),
                     child: const Icon(Icons.add, size: 45, color: textPrimary)))
           ],
         ),
