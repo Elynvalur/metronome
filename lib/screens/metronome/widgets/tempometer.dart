@@ -34,50 +34,18 @@ class Tempometer extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            GestureDetector(
-                onTap: () {
-                  tempo.tempo--;
-                  notifyParent();
-                },
-                child: Container(
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                            style: BorderStyle.solid,
-                            color: textPrimary,
-                            strokeAlign: BorderSide.strokeAlignCenter)),
-                    child: const Icon(Icons.remove, size: 45, color: textPrimary))),
+            _buildChangeTempoButton(icon: Icons.remove, onTap: () => tempo.tempo--),
             const SizedBox(width: 20),
-            Text(
-              '${tempo.tempo}',
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: textPrimary,
-                  fontSize: 80),
-            ),
+            // Tempo
+            _buildTempoIndicator(),
+
             const SizedBox(width: 10),
-            Column(children: [
-              Text('${signature.beatCount}', style: textStyleTimeSignature),
-              Container(
-                  margin: const EdgeInsets.only(top: 5, bottom: 5),
-                  decoration: const BoxDecoration(color: textPrimary),
-                  child: const SizedBox(width: 25, height: 2)),
-              Text('${signature.signature}', style: textStyleTimeSignature),
-            ]),
+            
+            _buildTimeSignatureIndicator(),
+
             const SizedBox(width: 20),
-            GestureDetector(
-                onTap: () {
-                  tempo.tempo++;
-                  notifyParent();
-                },
-                child: Container(
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                            style: BorderStyle.solid,
-                            color: textPrimary,
-                            strokeAlign: BorderSide.strokeAlignCenter)),
-                    child: const Icon(Icons.add, size: 45, color: textPrimary)))
+
+            _buildChangeTempoButton(icon: Icons.add, onTap: () => tempo.tempo++),
           ],
         ),
         Text(
@@ -86,5 +54,48 @@ class Tempometer extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Widget _buildChangeTempoButton({IconData? icon, required Function onTap}){
+
+    return GestureDetector(
+                onTap: () {
+                  onTap();
+                  notifyParent();
+                },
+                child: Container(
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                            style: BorderStyle.solid,
+                            color: textPrimary,
+                            strokeAlign: BorderSide.strokeAlignCenter)),
+                    child: Icon(icon,
+                        size: 45, color: textPrimary)));
+
+  }
+
+  Widget _buildTempoIndicator(){
+
+    const TextStyle textStyleTempoIndicator = TextStyle(
+    fontWeight: FontWeight.bold, color: textPrimary, fontSize: 80);
+
+    return GestureDetector(
+      onLongPress: () {
+        tempo.tempo++;
+        notifyParent();
+      },
+      child: Text('${tempo.tempo}', style: textStyleTempoIndicator));
+  }
+
+  Widget _buildTimeSignatureIndicator(){
+    return Column(children: [
+              Text('${signature.beatCount}', style: textStyleTimeSignature),
+              Container(
+                  margin: const EdgeInsets.only(top: 5, bottom: 5),
+                  decoration: const BoxDecoration(color: textPrimary),
+                  child: const SizedBox(width: 25, height: 2)),
+              Text('${signature.signature}', style: textStyleTimeSignature),
+            ]);
   }
 }
